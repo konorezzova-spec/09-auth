@@ -11,7 +11,7 @@ export default function EditProfilePage() {
   const { user, setUser } = useAuthStore();
   const handleSubmit = async (formData: FormData) => {
     try {
-      const name = formData.values.name;
+      const name = formData.get("name") as string;
       const res = await updateMe(name);
       if (res) {
         // Записуємо користувача у глобальний стан
