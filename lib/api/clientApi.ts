@@ -1,26 +1,17 @@
 import { Note } from "@/types/note";
-import axios from "axios";
+import { axiosInstance } from "./api";
+import { User } from "@/types/user";
 
-const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+export type NoteId = Note["id"];
 
-const axiosInstance = axios.create({
-  baseURL: "https://notehub-public.goit.study/api",
-  headers: {
-    Authorization: `Bearer ${myKey}`,
-    Accept: "application/json",
-  },
-});
-
-type NoteId = Note["id"];
-
-interface fetchParams {
+export interface fetchParams {
   search: string;
   page: number;
   perPage: number;
   tag?: string;
   sortBy?: string;
 }
-interface NotesHttpResponse {
+export interface NotesHttpResponse {
   notes: Note[];
   totalPages: number;
 }
@@ -30,7 +21,7 @@ interface NotesHttpResponse {
 export const fetchNotes = async (
   fetchParams: fetchParams
 ): Promise<NotesHttpResponse> => {
-  const response = await axiosInstance.get<NotesHttpResponse>(`/notes`, {
+  const response = await axiosInstance.get<NotesHttpResponse>("/notes", {
     params: fetchParams,
   });
   return response.data;
@@ -55,4 +46,47 @@ export const deleteNote = async (id: NoteId): Promise<Note> => {
 export const fetchNoteById = async (id: NoteId): Promise<Note> => {
   const response = await axiosInstance.get<Note>(`/notes/${id}`);
   return response.data;
+};
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+}
+
+export const register = async (data: RegisterRequest) => {
+  const res = await axiosInstance.post<User>("/auth/register", data);
+  return res.data;
+};
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+export const login = async (data: LoginRequest) => {
+  const res = await axiosInstance.post<User>("/auth/login", data);
+  return res.data;
+};
+type CheckSessionRequest = {
+  success: boolean;
+};
+
+export const checkSession = async () => {
+  const res = await axiosInstance.get<CheckSessionRequest>("/auth/session");
+  return res.data.success;
+};
+
+export const logout = async (): Promise<void> => {
+  await axiosInstance.post("/auth/logout");
+};
+
+export const getMe = async () => {
+  const { data } = await axiosInstance.get<User>("/users/me");
+  return data;
+};
+
+export const updateMe = async (name: string) => {
+  const { data } = await axiosInstance.patch<User>("/users/me", {
+    params: { name },
+  });
+  return data;
 };

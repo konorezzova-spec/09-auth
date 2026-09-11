@@ -4,16 +4,12 @@ import { useState } from "react";
 import css from "./NotesPage.module.css";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-// import { Toaster, toast } from "react-hot-toast";
-
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import NoteList from "@/components/NoteList/NoteList";
-// import Modal from "@/components/Modal/Modal";
-// import NoteForm from "@/components/NoteForm/NoteForm";
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 
 interface NotesClientProps {
@@ -25,7 +21,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
   const [debouncedQuery] = useDebounce(searchQuery, 500);
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
-  // const [modalOpen, setModalOpen] = useState(false);
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: [
@@ -50,19 +45,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
   };
 
   const totalPages = data?.totalPages ?? 0;
-
-  // useEffect(() => {
-  //   if (data && data.notes.length === 0) {
-  //     toast.error("No notes found.");
-  //   }
-  // }, [data]);
-
-  // const openModal = () => {
-  //   setModalOpen(true);
-  // };
-  // const closeModal = () => {
-  //   setModalOpen(false);
-  // };
 
   return (
     <>
@@ -92,14 +74,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
         {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
 
         {data && data.notes.length === 0 && <p>No notes found.</p>}
-
-        {/* <Toaster /> */}
-
-        {/* {modalOpen && (
-          <Modal onClose={closeModal}>
-            <NoteForm onClose={closeModal} />
-          </Modal>
-        )} */}
       </div>
     </>
   );

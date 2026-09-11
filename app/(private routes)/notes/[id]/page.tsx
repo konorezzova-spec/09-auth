@@ -1,4 +1,3 @@
-import { fetchNoteById } from "@/lib/api";
 import {
   dehydrate,
   HydrationBoundary,
@@ -6,6 +5,8 @@ import {
 } from "@tanstack/react-query";
 import NoteDetailsClient from "./NoteDetails.client";
 import { Metadata } from "next";
+import { fetchNotesById } from "@/lib/api/serverApi";
+import { fetchNoteById } from "@/lib/api/clientApi";
 
 interface NoteDetailsProps {
   params: Promise<{ id: string }>;
@@ -15,7 +16,7 @@ export async function generateMetadata({
   params,
 }: NoteDetailsProps): Promise<Metadata> {
   const { id } = await params;
-  const note = await fetchNoteById(id);
+  const note = await fetchNotesById(id);
   return {
     metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
     title: `${note.title}`,

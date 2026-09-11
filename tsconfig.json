@@ -29,9 +29,9 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "app/notes/filter/[...slug]/error.tsx",
-    "app/notes/filter/[...slug]/Notes.client.tsx",
-    "app/notes/filter/[...slug]/page.tsx"
+    "app/(private routes)/notes/filter/[...slug]/error.tsx",
+    "app/(private routes)/notes/filter/[...slug]/Notes.client.tsx",
+    "app/(private routes)/notes/filter/[...slug]/page.tsx"
   ],
   "exclude": ["node_modules"]
 }
