@@ -19,10 +19,10 @@ export const fetchNotes = async (
   return res.data;
 };
 
-export const fetchNotesById = async (id: NoteId): Promise<Note> => {
+export const fetchNoteById = async (id: NoteId): Promise<Note> => {
   // Дістаємо поточні cookie
   const cookieStore = await cookies();
-  const res = await axiosInstance.get(`/notes/${id}`, {
+  const res = await axiosInstance.get<Note>(`/notes/${id}`, {
     headers: {
       // передаємо кукі далі
       Cookie: cookieStore.toString(),

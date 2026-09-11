@@ -86,7 +86,7 @@ export const getMe = async () => {
 
 export const updateMe = async (name: string) => {
   const { data } = await axiosInstance.patch<User>("/users/me", {
-    params: { username: name },
+    username: name,
   });
   return data;
 };

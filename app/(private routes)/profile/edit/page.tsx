@@ -11,7 +11,7 @@ export default function EditProfilePage() {
   const { user, setUser } = useAuthStore();
   const handleSubmit = async (formData: FormData) => {
     try {
-      const name = formData.get("name") as string;
+      const name = formData.get("username") as string;
       const res = await updateMe(name);
       if (res) {
         // Записуємо користувача у глобальний стан
@@ -41,6 +41,7 @@ export default function EditProfilePage() {
             <label htmlFor="username">Username:</label>
             <input
               id="username"
+              name="username"
               type="text"
               className={css.input}
               required
@@ -55,7 +56,9 @@ export default function EditProfilePage() {
               Save
             </button>
             <button
-              onClick={() => router.push("/profile")}
+              onClick={() => {
+                router.push("/profile");
+              }}
               type="button"
               className={css.cancelButton}
             >

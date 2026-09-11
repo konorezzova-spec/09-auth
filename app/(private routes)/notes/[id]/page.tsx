@@ -5,8 +5,7 @@ import {
 } from "@tanstack/react-query";
 import NoteDetailsClient from "./NoteDetails.client";
 import { Metadata } from "next";
-import { fetchNotesById } from "@/lib/api/serverApi";
-import { fetchNoteById } from "@/lib/api/clientApi";
+import { fetchNoteById } from "@/lib/api/serverApi";
 
 interface NoteDetailsProps {
   params: Promise<{ id: string }>;
@@ -16,7 +15,7 @@ export async function generateMetadata({
   params,
 }: NoteDetailsProps): Promise<Metadata> {
   const { id } = await params;
-  const note = await fetchNotesById(id);
+  const note = await fetchNoteById(id);
   return {
     metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
     title: `${note.title}`,
