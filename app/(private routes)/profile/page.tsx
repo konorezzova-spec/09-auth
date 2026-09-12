@@ -4,15 +4,13 @@ import Image from "next/image";
 import { getMe } from "@/lib/api/serverApi";
 import { Metadata } from "next";
 
-const myURL = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-
 export const metadata: Metadata = {
   title: "NoteHub User profile",
   description: "User profile page",
   openGraph: {
     title: "NoteHub",
-    description: "A professional-grade private notes management system",
-    url: `${myURL}`,
+    description: "Profile page",
+    url: "https://09-auth-eta-gold.vercel.app",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",

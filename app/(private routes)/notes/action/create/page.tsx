@@ -4,11 +4,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Create note",
   description: "Create a new note",
-  metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
+  metadataBase: new URL("https://09-auth-eta-gold.vercel.app"),
   openGraph: {
     title: "Create note",
     description: "Create a new note",
-    url: "https://08-zustand-coral-two.vercel.app/notes/action/create",
+    url: "https://09-auth-eta-gold.vercel.app/notes/action/create",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
